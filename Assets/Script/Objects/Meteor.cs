@@ -12,7 +12,9 @@ public class Meteor : MonoBehaviour
 {
     public MeteorType type;
     [SerializeField] int damage;
+    [SerializeField] GameObject spriteObj;
     [HideInInspector] public GameObject bonusPrefab;
+    [SerializeField] private GameObject[] bonusPrefabs;
 
     [Header("Settings")]
     [SerializeField] float minFallSpeed = 1f;
@@ -33,7 +35,7 @@ public class Meteor : MonoBehaviour
     {
         transform.position += Vector3.down * currentFallSpeed * Time.deltaTime;
 
-        transform.Rotate(0, 0, currentRotationSpeed * Time.deltaTime);
+        spriteObj.transform.Rotate(0, 0, currentRotationSpeed * Time.deltaTime);
 
         if (transform.position.y <= -6f)
         {
@@ -50,6 +52,8 @@ public class Meteor : MonoBehaviour
         float rotationDirection = Random.value > 0.5f ? 1f : -1f;
 
         currentRotationSpeed = randomSpeed * rotationDirection;
+
+        bonusPrefab = bonusPrefabs[Random.Range(0, bonusPrefabs.Length)];
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

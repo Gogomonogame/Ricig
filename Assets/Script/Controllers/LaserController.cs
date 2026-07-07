@@ -14,7 +14,11 @@ public class LaserController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        collision.gameObject.GetComponent<Health>().DecreaseHealth(damage);
+        Health targetHealth = collision.gameObject.GetComponent<Health>();
+        if (targetHealth != null)
+        {
+            targetHealth.DecreaseHealth(damage);
+        }
         Destroy(gameObject);
     }
 
